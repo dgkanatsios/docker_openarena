@@ -3,6 +3,10 @@ MAINTAINER poul@poulsander.com
 #For development purposes it may be preferable to download the file and COPY it into the container 
 #COPY openarena-0.8.8.zip /staging/
 
+RUN apt-get update \
+ && apt-get install -y wget \
+ && apt-get clean all
+
 #Default files to be copied to /data/openarena/baseoa if not exits
 COPY server_config_sample.cfg /default_files/
 COPY copy_to_if_not_existing.sh /opt/
