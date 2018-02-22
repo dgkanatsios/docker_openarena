@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 set -euo pipefail
 
 OPENARENA_HOME=/data/openarena
@@ -28,7 +28,14 @@ DEDICATED_ARG="+set dedicated 2"
 
 DAEMON_ARGS="$DEDICATED_ARG $SERVER_ARGS"
 
-DAEMON=/opt/openarena/oa_ded.x86_64
+DAEMON=/data/oa_ded.x86_64
+
+#initialize the connected file
+connected=0
+echo $connected > /tmp/connected
 
 echo "Starting: $DAEMON $DAEMON_ARGS"
-exec $DAEMON $DAEMON_ARGS
+#exec $DAEMON $DAEMON_ARGS
+#capturing line by line on bash
+#https://unix.stackexchange.com/questions/117501/in-bash-script-how-to-capture-stdout-line-by-line
+exec stdbuf -oL $DAEMON $DAEMON_ARGS | /opt/stdoutprocessor.sh

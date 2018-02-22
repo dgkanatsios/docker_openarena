@@ -1,6 +1,19 @@
 # docker_openarena
 OpenArena server - docker image
 
+A fork of https://github.com/sago007/docker_openarena that works with [AzureContainersInstancesManagement](https://github.com/dgkanatsios/AzureContainerInstancesManagement) project by extending it with:
+
+- ability to set server name via env variable ($SERVER_NAME)
+- stores connected users count to /tmp/connected
+- posts updates about connected users count to Azure Function (url is $SET_SESSIONS_URL, set during container creation from the AzureContainerInstancesManagement project).
+
+To run locally, type:
+
+```bash
+docker build -t dgkanatsios/docker_openarena .
+docker run --rm -it -p 8303:8303/udp -e OA_STARTMAP=dm4ish -e OA_PORT=27960 -e SET_SESSIONS_URL=https://teeworlds.azurewebsites.net/api/ACISetSessions?code=<KEY> -e RESOURCE_GROUP='openarena' -e CONTAINER_GROUP_NAME='openarenaserver1' --name openarenaserver1 -v "PATH/TO/openarena_data":/data dgkanatsios/docker_openarena
+```
+
 This is a docker image with an OpenArena server. This image utilizing OpenArena 0.8.8's features. This can be both good and bad.
 
 This image is good if:
@@ -10,11 +23,6 @@ This image is good if:
  
 This image is not good if:
  * You want to host a server with a mod not based of OpenArena 0.8.8
- 
-To run do something like:
-```
-docker run -it -e "OA_STARTMAP=dm4ish" -e "OA_PORT=27960" --rm -p 27960:27960/udp -v openarena_data:/data sago007/openarena
-```
 
 Be warned that all three port numbers must be changed if you want to run on another port and have the game appear in the server list.
 
