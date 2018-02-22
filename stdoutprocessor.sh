@@ -34,8 +34,6 @@ do
         #RESOURCE_GROUP='openarena'
         #CONTAINER_GROUP_NAME='openarenarver1'
 
-        #we're using wget in the Dockerfile as this results in a smaller Docker image
-        #curl -d "[{\"resourceGroup\":\"$RESOURCE_GROUP\", \"containerGroupName\":\"$CONTAINER_GROUP_NAME\", \"activeSessions\":$connected}]" -H "Content-Type: application/json" -X POST $SET_SESSIONS_URL &
         wget -O- --post-data="[{\"resourceGroup\":\"$RESOURCE_GROUP\", \"containerGroupName\":\"$CONTAINER_GROUP_NAME\", \"activeSessions\":$connected}]" --header=Content-Type:application/json "$SET_SESSIONS_URL"
 
     fi 

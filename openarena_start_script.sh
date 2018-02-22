@@ -3,7 +3,7 @@ set -euo pipefail
 
 OPENARENA_HOME=/data/openarena
 BASEOA=${OPENARENA_HOME}/baseoa
-LOGFILE="$BASEOA/games.log"
+LOGFILE="$BASEOA/$CONTAINER_GROUP_NAME-games.log"
 
 mkdir -p "${BASEOA}"
 

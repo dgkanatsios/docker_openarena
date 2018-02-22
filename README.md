@@ -11,7 +11,7 @@ To run locally, type:
 
 ```bash
 docker build -t dgkanatsios/docker_openarena .
-docker run --rm -it -p 27960:27960/udp -e OA_STARTMAP=dm4ish -e OA_PORT=27960 -e SET_SESSIONS_URL=https://teeworlds.azurewebsites.net/api/ACISetSessions?code=<KEY> -e RESOURCE_GROUP='openarena' -e CONTAINER_GROUP_NAME='openarenaserver1' --name openarenaserver1 -v "PATH/TO/openarena_data":/data dgkanatsios/docker_openarena
+docker run --rm -it -p 27960:27960/udp -e OA_STARTMAP=dm4ish -e OA_PORT=27960 -e SET_SESSIONS_URL=https://teeworlds.azurewebsites.net/api/ACISetSessions?code=<KEY> -e RESOURCE_GROUP='openarena' -e CONTAINER_GROUP_NAME='openarenaserver1' --name openarenaserver1 -v PATH/TO/openarena_data:/data dgkanatsios/docker_openarena
 ```
 
 This is a docker image with an OpenArena server. This image utilizing OpenArena 0.8.8's features. This can be both good and bad.
@@ -28,7 +28,7 @@ Be warned that all three port numbers must be changed if you want to run on anot
 
 To change the config you can start a bash instance with:
 ```
-docker run -it --rm -v openarena_data:/data --user 0 sago007/openarena bash
+docker run -it --rm -v openarena_data:/data --user 0 dgkanatsios/docker_openarena bash
 ```
 And then do:
 ```
