@@ -38,4 +38,4 @@ echo "Starting: $DAEMON $DAEMON_ARGS"
 #exec $DAEMON $DAEMON_ARGS
 #capturing line by line on bash
 #https://unix.stackexchange.com/questions/117501/in-bash-script-how-to-capture-stdout-line-by-line
-exec stdbuf -oL $DAEMON $DAEMON_ARGS | /opt/stdoutprocessor.sh
+exec stdbuf -oL $DAEMON $DAEMON_ARGS 2>&1 | /opt/stdoutprocessor.sh
