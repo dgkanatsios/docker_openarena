@@ -5,7 +5,6 @@ while IFS= read -r line
 do
     #echo line so that docker can gather its logs from stdout
     echo $line
-
     #message when a player is connected is like: [5a8bf70c][server]: player has entered the game. ClientID=1 addr=172.17.0.1:57587
     x=$(echo $line | grep 'ClientBegin:' | wc -l)
     toAdd=0
@@ -31,8 +30,8 @@ do
 
         #following are specified on Docker image creation
         #SET_SESSIONS_URL=https://teeworlds.azurewebsites.net/api/ACISetSessions?code=<KEY>
-        #RESOURCE_GROUP='teeworlds'
-        #CONTAINER_GROUP_NAME='teeserver1'
+        #RESOURCE_GROUP='openarena'
+        #CONTAINER_GROUP_NAME='openarenarver1'
 
         #we're using wget in the Dockerfile as this results in a smaller Docker image
         #curl -d "[{\"resourceGroup\":\"$RESOURCE_GROUP\", \"containerGroupName\":\"$CONTAINER_GROUP_NAME\", \"activeSessions\":$connected}]" -H "Content-Type: application/json" -X POST $SET_SESSIONS_URL &
