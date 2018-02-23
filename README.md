@@ -1,3 +1,4 @@
+[![unofficial Google Analytics for GitHub](https://gaforgithub.azurewebsites.net/api?repo=docker_openarena)](https://github.com/dgkanatsios/gaforgithub)
 # docker_openarena
 OpenArena server - docker image
 
@@ -13,6 +14,8 @@ To run locally, type:
 docker build -t dgkanatsios/docker_openarena .
 docker run --rm -it -p 27960:27960/udp -e OA_STARTMAP=dm4ish -e OA_PORT=27960 -e SET_SESSIONS_URL=https://teeworlds.azurewebsites.net/api/ACISetSessions?code=<KEY> -e RESOURCE_GROUP='openarena' -e CONTAINER_GROUP_NAME='openarenaserver1' --name openarenaserver1 -v PATH/TO/openarena_data:/data dgkanatsios/docker_openarena
 ```
+
+Docker Hub link: https://hub.docker.com/r/dgkanatsios/docker_openarena/
 
 This is a docker image with an OpenArena server. This image utilizing OpenArena 0.8.8's features. This can be both good and bad.
 
