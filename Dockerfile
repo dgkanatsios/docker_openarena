@@ -1,16 +1,12 @@
 FROM debian:stretch-slim
 
 RUN apt-get update \
- && apt-get install -y wget \
+ && apt-get install -y wget pwgen \
  && apt-get clean all
 
-#Default files to be copied to /data/openarena/baseoa if not exits
-COPY server_config_sample.cfg /default_files/
-COPY copy_to_if_not_existing.sh /opt/
-COPY openarena_start_script.sh /opt/
-COPY stdoutprocessor.sh /opt
+COPY * /opt/
 
-#All persistant data is stored under /data. Both config and logs
+#All game data is stored under /data. Assets, executables, config, logs
 VOLUME ["/data"]
 
 #OpenArena needs this one port. 

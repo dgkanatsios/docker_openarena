@@ -1,14 +1,22 @@
 #!/bin/bash
-set -euo pipefail
+
+if [[ -z "${SERVER_NAME}" ]]; then
+  SERVER_NAME='OpenArena[dckr-'$(pwgen)']'
+fi
+
+if [[ -z "${OA_STARTMAP}" ]]; then
+  OA_STARTMAP='dm4ish'
+fi
 
 OPENARENA_HOME=/data/openarena
 BASEOA=${OPENARENA_HOME}/baseoa
-LOGFILE="$BASEOA/$CONTAINER_GROUP_NAME-games.log"
+LOGFILE="$BASEOA/$SERVER_NAME-games.log"
 
 mkdir -p "${BASEOA}"
 
-cd /default_files
-ls | xargs -n1 /opt/copy_to_if_not_existing.sh "${BASEOA}"
+#change the server name and copy the new configuration
+sed -i "s/My OA server/$SERVER_NAME/g" /opt/server_config_sample.cfg
+cp /opt/server_config_sample.cfg ${BASEOA}/server_config_${SERVER_NAME}.cfg
 
 if [ "$OA_ROTATE_LOGS" = "1" ] && [ -f "$LOGFILE" ]
 then
@@ -21,7 +29,7 @@ then
   fi
 fi
 
-SERVER_ARGS="+set fs_homepath /data/openarena +set net_port ${OA_PORT} +exec server_config_sample.cfg +map $OA_STARTMAP"
+SERVER_ARGS="+set fs_homepath /data/openarena +set net_port ${OA_PORT} +exec server_config_${SERVER_NAME}.cfg +map $OA_STARTMAP"
 
 # 1==LAN, 2==Internet
 DEDICATED_ARG="+set dedicated 2"
