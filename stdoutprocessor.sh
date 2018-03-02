@@ -23,13 +23,13 @@ do
     fi
     
     #this takes place when the server changes map
-    y=$(echo $line | grep 'AAS shutdown.' | wc -l)
-    if [ $y -eq 1 ]
+    z=$(echo $line | grep 'AAS shutdown.' | wc -l)
+    if [ $z -eq 1 ]
     then
         toAdd=-$(</tmp/connected) #reset all players
     fi
 
-    if [ $x -eq 1 ] || [ $y -eq 1 ]
+    if [ $x -eq 1 ] || [ $y -eq 1 ] || [ $z -eq 1 ]
     then
         #get current connected count from the file
         connected=$(</tmp/connected)
