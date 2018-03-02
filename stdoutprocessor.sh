@@ -6,21 +6,29 @@ do
     #echo line so that docker can gather its logs from stdout
  
     echo $line
-    #message when a player is connected is like: [5a8bf70c][server]: player has entered the game. ClientID=1 addr=172.17.0.1:57587
+    
+    #client connection
     x=$(echo $line | grep 'ClientBegin:' | wc -l)
     toAdd=0
     if [ $x -eq 1 ]
     then
        toAdd=1
     fi
-
-    #message when a player leaves is like [5a8bf70c][server]: '(1)nameless tee' has left the game
+    
+    #client disconnection
     y=$(echo $line | grep 'ClientDisconnect:' | wc -l)
     if [ $y -eq 1 ]
     then
         toAdd=-1
     fi
     
+    #this takes place when the server changes map
+    y=$(echo $line | grep 'AAS shutdown.' | wc -l)
+    if [ $y -eq 1 ]
+    then
+        toAdd=-$(</tmp/connected) #reset all players
+    fi
+
     if [ $x -eq 1 ] || [ $y -eq 1 ]
     then
         #get current connected count from the file
@@ -30,7 +38,7 @@ do
         echo $connected > /tmp/connected
 
         #following are specified on Docker image creation
-        #SET_SESSIONS_URL=https://teeworlds.azurewebsites.net/api/ACISetSessions?code=<KEY>
+        #SET_SESSIONS_URL=https://acimanagement.azurewebsites.net/api/ACISetSessions?code=<KEY>
         #RESOURCE_GROUP='openarena'
         #CONTAINER_GROUP_NAME='openarenarver1'
 
