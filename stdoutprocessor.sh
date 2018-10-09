@@ -38,11 +38,11 @@ do
         echo $connected > /tmp/connected
 
         #following are specified on Docker image creation
-        #SET_SESSIONS_URL=https://acimanagement.azurewebsites.net/api/ACISetSessions?code=<KEY>
+        #ACI_SET_SESSIONS_URL=https://acimanagement.azurewebsites.net/api/ACISetSessions?code=<KEY>
         #RESOURCE_GROUP='openarena'
         #CONTAINER_GROUP_NAME='openarenarver1'
 
-        wget -O- --post-data="[{\"resourceGroup\":\"$RESOURCE_GROUP\", \"containerGroupName\":\"$CONTAINER_GROUP_NAME\", \"activeSessions\":$connected}]" --header=Content-Type:application/json "$SET_SESSIONS_URL"
+        wget -O- --post-data="[{\"resourceGroup\":\"$RESOURCE_GROUP\", \"containerGroupName\":\"$CONTAINER_GROUP_NAME\", \"activeSessions\":$connected}]" --header=Content-Type:application/json "$ACI_SET_SESSIONS_URL"
 
     fi 
 done
