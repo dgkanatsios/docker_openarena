@@ -16,7 +16,10 @@ mkdir -p "${BASEOA}"
 
 #change the server name and copy the new configuration
 sed -i "s/My OA server/$SERVER_NAME/g" /opt/server_config_sample.cfg
-cp /opt/server_config_sample.cfg ${BASEOA}/server_config_${SERVER_NAME}.cfg
+#if file not yet created then copy
+if [[ ! -f "${BASEOA}/server_config_${SERVER_NAME}.cfg" ]]; then
+  cp /opt/server_config_sample.cfg ${BASEOA}/server_config_${SERVER_NAME}.cfg
+fi
 
 if [ "$OA_ROTATE_LOGS" = "1" ] && [ -f "$LOGFILE" ]
 then
